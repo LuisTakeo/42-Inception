@@ -6,9 +6,12 @@ WP_PHP_DIR = /home/$(USER)/data/wordpress
 COMPOSER_FILE = ./srcs/docker-compose.yml
 DOCKER_COMPOSE_EXE = docker-compose -f $(COMPOSER_FILE)
 
+
+all: config up
+
 config:
 	@if [ ! -f ./srcs/.env ]; then \
-		wget -O ./srcs/.env https://raw.githubusercontent.com/LuisTakeo/42-Inception/main/srcs/.env; \
+		wget -O ./srcs/.env https://raw.githubusercontent.com/LuisTakeo/42-Inception/refs/heads/master/srcs/.env; \
 	fi
 
 	@if ! grep -q '$(USER)' /etc/hosts; then \
@@ -31,7 +34,7 @@ up: build
 down:
 	$(DOCKER_COMPOSE_EXE) down
 
-all: config up
+
 
 ps:
 	$(DOCKER_COMPOSE_EXE) ps
